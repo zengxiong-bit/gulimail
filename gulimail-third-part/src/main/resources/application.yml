@@ -1,6 +1,0 @@
-spring:
-  cloud:
-    alicloud:
-
-      oss:
-        endpoint: https://oss-cn-beijing.aliyuncs.com
