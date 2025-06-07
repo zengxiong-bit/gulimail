@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    alicloud:
+      access-key: LTAI5tLU11fDHYV1czunUhxW
+      secret-key: jMYaa4QCfUrAyGMSJBvTRkU5MRidaR
+      oss:
+        endpoint: https://oss-cn-beijing.aliyuncs.com

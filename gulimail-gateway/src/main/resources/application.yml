@@ -1,0 +1,36 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: query_route
+          uri: https://www.baidu.com
+          predicates:
+            - Query=url,baidu
+        - id: member_route
+          uri: http://localhost:8000/
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+
+        - id: product_route
+          uri: http://localhost:9500/
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+
+        - id: admin_route
+          uri: http://localhost:8080/
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /renren-fast/$\{segment}
+
+        - id: gulimailzx_host_route
+          uri: http://localhost:9500/
+          predicates:
+            - Host=gulimailzx.com
+
+server:
+  port: 88
