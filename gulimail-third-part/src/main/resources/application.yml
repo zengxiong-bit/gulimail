@@ -5,3 +5,12 @@ spring:
       secret-key: jMYaa4QCfUrAyGMSJBvTRkU5MRidaR
       oss:
         endpoint: https://oss-cn-beijing.aliyuncs.com
+
+myapp:
+  name: DemoApp
+  enabled: true
+  timeout: 60
+  servers:
+    - server1.example.com
+    - server2.example.com
+

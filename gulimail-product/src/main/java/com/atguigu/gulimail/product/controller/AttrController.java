@@ -11,6 +11,9 @@ import cn.hutool.json.JSONUtil;
 import org.redisson.api.RMapCache;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -81,6 +84,7 @@ public class AttrController {
     /**
      * 修改
      */
+    @CacheEvict(value = "attr", key = "'entity'")
     @RequestMapping("/update")
     // @RequiresPermissions("product:attr:update")
     public R update(@RequestBody AttrEntity attr) {
@@ -111,6 +115,22 @@ public class AttrController {
         JSONArray jsonArray = JSONUtil.parseArray(entities);
 
         return JSONUtil.toList(jsonArray, AttrEntity.class);
+    }
+
+    @RequestMapping("/cache")
+    @Cacheable(value = "attr", key = "'entity'")
+    public List<AttrEntity> cache() {
+            System.out.println("🥶🥶 [数据库查询] 正在查询 ........");
+            return attrService.selectAll();
+
+    }
+
+    @RequestMapping("/cachePut")
+    @CachePut(value = "attr", key = "'entity'")
+    public List<AttrEntity> cachePut() {
+        System.out.println("🥶🥶 [数据库查询] 正在查询 ........");
+        return attrService.selectAll();
+
     }
 
 }

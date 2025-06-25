@@ -1,4 +1,4 @@
-package com.atguigu.gulimail.product.web;
+package com.atguigu.gulimail.product.web.controller;
 
 import cn.hutool.core.lang.UUID;
 import org.redisson.api.RLock;
@@ -25,6 +25,9 @@ public class IndexController {
     public String index(){
         return "index";
     }
+
+
+
 
     @GetMapping("/park")
     public String park() {

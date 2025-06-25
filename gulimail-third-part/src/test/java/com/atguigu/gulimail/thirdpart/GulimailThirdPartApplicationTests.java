@@ -5,6 +5,7 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
+import com.atguigu.gulimail.thirdpart.service.PropertiesService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,8 +20,12 @@ class GulimailThirdPartApplicationTests {
     @Autowired
     OSSClient ossClient;
 
+    @Autowired
+    PropertiesService propertiesService;
+
     @Test
     void contextLoads() {
+        propertiesService.testAutoProperties();
     }
 
     @Test

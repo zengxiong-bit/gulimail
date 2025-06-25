@@ -3,6 +3,10 @@ package com.atguigu.gulimail.member.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.json.JSONUtil;
+import com.atguigu.gulimail.common.enue.ThirdPartyLoginType;
+import com.atguigu.gulimail.member.entity.GiteeUser;
 import com.atguigu.gulimail.member.feign.CouponFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -94,6 +98,23 @@ public class MemberController {
     public R delete(@RequestBody Long[] ids){
 		memberService.removeByIds(Arrays.asList(ids));
 
+        return R.ok();
+    }
+
+    @RequestMapping("login/save")
+    public R loginSave(@RequestParam("thirdPartyLoginType") ThirdPartyLoginType thirdPartyLoginType,
+                       @RequestParam("response") String response){
+        if (thirdPartyLoginType == ThirdPartyLoginType.GITEE){
+            GiteeUser user = JSONUtil.toBean(response, GiteeUser.class, true);
+
+            MemberEntity member = new MemberEntity();
+
+            BeanUtil.copyProperties(user, member);
+
+            member.setUsername("gitee");
+
+            memberService.save(member);
+        }
         return R.ok();
     }
 
